@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useContext } from "react";
+import BookCreate from "./components/BookCreate";
+import BookList from "./components/BookList";
+import BooksContext from "./context/books";
+
+// -----------------------------------------------------------
 
 function App() {
+  const { fetchBooks } = useContext(BooksContext);
+
+  useEffect(() => {
+    fetchBooks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchBooks]);
+
+  // DONT DO THIS
+  // Directly Calling  FetchBooks();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Reading List</h1>
+      <BookList />
+      <BookCreate />
     </div>
   );
 }
